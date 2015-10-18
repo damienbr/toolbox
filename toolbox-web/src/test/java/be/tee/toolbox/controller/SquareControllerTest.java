@@ -1,6 +1,6 @@
 package be.tee.toolbox.controller;
 
-import be.tee.toolbox.controller.toolbox.geometry.service.SquareService;
+import be.tee.toolbox.geometry.service.SquareService;
 import org.assertj.core.api.Assertions;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;

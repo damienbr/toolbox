@@ -1,8 +1,8 @@
-package be.tee.toolbox.controller.toolbox.geometry.service.impl;
+package be.tee.toolbox.geometry.service.impl;
 
-import be.tee.toolbox.controller.model.Square;
-import be.tee.toolbox.controller.toolbox.geometry.service.SquareArithmeticsService;
-import be.tee.toolbox.controller.toolbox.geometry.service.SquareService;
+import be.tee.toolbox.geometry.service.SquareArithmeticsService;
+import be.tee.toolbox.geometry.service.SquareService;
+import be.tee.toolbox.model.Square;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

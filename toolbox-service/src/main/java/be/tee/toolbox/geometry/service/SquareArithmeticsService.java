@@ -1,4 +1,4 @@
-package be.tee.toolbox.controller.toolbox.geometry.service;
+package be.tee.toolbox.geometry.service;
 
 public interface SquareArithmeticsService {
 

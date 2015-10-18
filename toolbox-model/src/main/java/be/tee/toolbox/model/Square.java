@@ -1,11 +1,24 @@
-package be.tee.toolbox.controller.model;
+package be.tee.toolbox.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "SQUARE")
 public class Square {
 
+    @Id
+    @Column(name = "id")
+    @GeneratedValue
     private Integer id;
 
+    @Column(name = "size")
     private Integer size;
 
+    @Column(name = "name")
     private String name;
 
     public Integer getId() {

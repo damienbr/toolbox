@@ -1,13 +1,11 @@
 package be.tee.toolbox.controller;
 
-import be.tee.toolbox.controller.toolbox.geometry.service.SquareService;
+import be.tee.toolbox.geometry.service.SquareService;
 import org.apache.commons.lang.StringUtils;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -16,20 +14,19 @@ import org.springframework.web.servlet.View;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-//http://blog.trifork.com/2012/12/11/properly-testing-spring-mvc-controllers/
-@ContextConfiguration("classpath:/application-test-context.xml")
-public class SquareControllerIntegrationTest extends AbstractTestNGSpringContextTests {
+// http://blog.trifork.com/2012/12/11/properly-testing-spring-mvc-controllers/
+public class SquareControllerIntegrationTest {
 
     private static String EXPECTED_MESSAGE = "<br><div style='text-align:center;'><h3>Hello World, Spring MVC Tutorial</h3>Hello takeeateasy!</div><br><br>";
+
+    @InjectMocks
+    private SquareController squareController;
 
     @Mock
     private SquareService squareService;
 
     @Mock
     private View mockView;
-
-    @InjectMocks
-    private SquareController squareController;
 
     private MockMvc mockMvc;
 

@@ -1,8 +1,8 @@
-package be.tee.toolbox.controller.toolbox.geometry.service.impl;
+package be.tee.toolbox.geometry.service.impl;
 
-import be.tee.toolbox.controller.dao.SquareDao;
-import be.tee.toolbox.controller.model.Square;
-import be.tee.toolbox.controller.toolbox.geometry.service.SquareService;
+import be.tee.toolbox.dao.SquareDao;
+import be.tee.toolbox.geometry.service.SquareService;
+import be.tee.toolbox.model.Square;
 import org.assertj.core.api.Assertions;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -28,15 +28,15 @@ public class SquareServiceImplTest {
     public void testGetSquare() throws Exception {
         int id = 1;
         Square expected = getSquare(id);
-        Mockito.when(squareDao.findSquareById(id)).thenReturn(expected);
+        Mockito.when(squareDao.findById(id)).thenReturn(expected);
         Square actual = squareService.getSquare(id);
         Assertions.assertThat(actual).isEqualTo(expected);
 
         Square expected2 = squareService.getSquare(2);
         Assertions.assertThat(expected2).isNull();
 
-        Mockito.verify(squareDao).findSquareById(id);
-        Mockito.verify(squareDao).findSquareById(2);
+        Mockito.verify(squareDao).findById(id);
+        Mockito.verify(squareDao).findById(2);
     }
 
     private Square getSquare(Integer id) {

@@ -1,6 +1,6 @@
-package be.tee.toolbox.controller.toolbox.geometry.service;
+package be.tee.toolbox.geometry.service;
 
-import be.tee.toolbox.controller.model.Square;
+import be.tee.toolbox.model.Square;
 
 public interface SquareService {
 

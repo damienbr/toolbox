@@ -1,43 +1,52 @@
 package be.tee.toolbox.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
+import be.tee.toolbox.controller.toolbox.geometry.service.SquareService;
+import org.assertj.core.api.Assertions;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.springframework.http.ResponseEntity;
+import org.springframework.test.web.ModelAndViewAssert;
+import org.springframework.web.servlet.ModelAndView;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-@WebAppConfiguration
-@ContextConfiguration("classpath:/application-test-context.xml")
-public class SquareControllerTest extends AbstractTestNGSpringContextTests {
+public class SquareControllerTest {
 
     private static String EXPECTED_MESSAGE = "<br><div style='text-align:center;'><h3>Hello World, Spring MVC Tutorial</h3>Hello takeeateasy!</div><br><br>";
 
-    @Autowired
-    private WebApplicationContext wac;
+    @InjectMocks
+    private SquareController controller = new SquareController();
 
-    private MockMvc mockMvc;
+    @Mock
+    private SquareService squareService;
 
     @BeforeMethod
     public void setup() {
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+        MockitoAnnotations.initMocks(this);
     }
 
     @Test
     public void testHelloWorld() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/square"))
-                .andExpect(MockMvcResultMatchers.view().name("welcome"))
-                .andExpect(MockMvcResultMatchers.model().attribute("message", EXPECTED_MESSAGE))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+        ModelAndView modelAndView = controller.helloWorld();
+        ModelAndViewAssert.assertModelAttributeValue(modelAndView, "message", EXPECTED_MESSAGE);
     }
 
     @Test
     public void testGetSquareName() throws Exception {
+        Mockito.when(squareService.getSquareName(1)).thenReturn("myName");
+        Mockito.when(squareService.getSquareName(2)).thenReturn("myName2");
+        ResponseEntity<String> squareName = controller.getSquareName(1);
+        String actual = squareName.getBody();
+        Assertions.assertThat(actual).isEqualTo("myName");
 
+        squareName = controller.getSquareName(null);
+        actual = squareName.getBody();
+        Assertions.assertThat(actual).isNull();
+
+        squareName = controller.getSquareName(2);
+        actual = squareName.getBody();
+        Assertions.assertThat(actual).isEqualTo("myName2");
     }
 }

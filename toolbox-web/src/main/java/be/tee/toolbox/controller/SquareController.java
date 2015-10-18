@@ -21,14 +21,14 @@ public class SquareController {
     @Autowired
     private SquareService squareService;
 
-    @RequestMapping(value = "/square", method = RequestMethod.GET)
+    @RequestMapping(value = "/welcome", method = RequestMethod.GET)
     public ModelAndView helloWorld() {
         String message = HELLO_WORLD_MESSAGE;
         return new ModelAndView("welcome", "message", message);
     }
 
     @RequestMapping(value = "/square/{squareId}", method = RequestMethod.GET)
-    public @ResponseBody ResponseEntity<String> getSquareName(@PathVariable(value = "squareId") Integer squareId) {
+    public @ResponseBody ResponseEntity<String> getSquareName(@PathVariable Integer squareId) {
         String squareName = squareService.getSquareName(squareId);
         if (StringUtils.isEmpty(squareName)) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

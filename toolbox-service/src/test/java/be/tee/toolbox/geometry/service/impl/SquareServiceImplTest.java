@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class SquareServiceImplTest {
@@ -39,8 +40,47 @@ public class SquareServiceImplTest {
         Mockito.verify(squareDao).findById(2);
     }
 
+    @Test(dataProvider = "squareNameScenario")
+    public void getSquareName(Integer squareId, String expected, Square square) {
+        Mockito.when(squareDao.findById(squareId)).thenReturn(square);
+        String actual = squareService.getSquareName(squareId);
+        Assertions.assertThat(actual).isEqualTo(expected);
+    }
+
+    @DataProvider(name = "squareNameScenario")
+    private Object[][] getSquareNameDataProvider() {
+        return new Object[][] {
+                {1, "name1", getSquare(1)},
+                {2, "name2", getSquare(2)},
+                {3, null, null},
+                {null, null, null},
+        };
+    }
+
+    @Test
+    public void squareExist() {
+        Mockito.when(squareDao.findSquareByName("prout")).thenReturn(getSquare(1));
+        boolean actual = squareService.squareExist("prout");
+        Assertions.assertThat(actual).isTrue();
+        actual = squareService.squareExist("blabla");
+        Assertions.assertThat(actual).isFalse();
+    }
+
+
+    @Test
+    public void createSquare() {
+        Integer size = 1;
+        String name = "blabla";
+        Square square = new Square();
+        square.setName(name);
+        square.setSize(size);
+        squareService.createSquare(size, name);
+        Mockito.verify(squareDao).save(square);
+    }
+
     private Square getSquare(Integer id) {
         Square expected = new Square();
+        expected.setName("name"+id);
         expected.setSize(id * 3);
         expected.setId(id);
         return expected;

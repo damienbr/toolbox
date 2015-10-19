@@ -15,7 +15,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 // http://blog.trifork.com/2012/12/11/properly-testing-spring-mvc-controllers/
-public class SquareControllerIntegrationTest {
+public class SquareControllerTest {
 
     private static String EXPECTED_MESSAGE = "<br><div style='text-align:center;'><h3>Hello World, Spring MVC Tutorial</h3>Hello takeeateasy!</div><br><br>";
 
